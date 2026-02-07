@@ -537,3 +537,24 @@
         transform: scale(0.95);
     }
 }
+
+.hint-instruction {
+    display: block;
+    margin-top: 12px;
+    color: #ffaa00;
+    font-size: 7px;
+    animation: instructBlink 1s infinite;
+    text-shadow: 0 0 5px #ffaa00;
+}
+
+@keyframes instructBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}

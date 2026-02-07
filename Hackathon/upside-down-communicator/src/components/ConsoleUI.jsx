@@ -131,6 +131,7 @@ const ConsoleUI = ({
                             <span key={i} className="hint-key">{symbol}</span>
                         ))}
                     </span>
+                    <span className="hint-instruction">👆 CLICK HERE THEN PRESS ARROW KEYS</span>
                 </div>
             )}
 
