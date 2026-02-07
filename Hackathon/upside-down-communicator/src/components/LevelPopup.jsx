@@ -7,7 +7,7 @@ const LevelPopup = ({ stage, onComplete }) => {
             onComplete();
         }, 2000);
         return () => clearTimeout(timer);
-    }, [onComplete]);
+    }, [onComplete, stage]);
 
     const messages = {
         1: { title: 'SIGNAL STABILIZED', sub: 'STAGE 1 COMPLETE' },

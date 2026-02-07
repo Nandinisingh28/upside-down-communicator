@@ -436,13 +436,17 @@ function App() {
     }} />;
   }
 
+  const handlePopupComplete = useCallback(() => {
+    setShowLevelPopup(null);
+  }, []);
+
   return (
     <div className={`app ${mode === 'possessed' ? 'possessed' : ''}`}>
       {/* Level Popup */}
       {showLevelPopup && (
         <LevelPopup
           stage={showLevelPopup}
-          onComplete={() => setShowLevelPopup(null)}
+          onComplete={handlePopupComplete}
         />
       )}
 
