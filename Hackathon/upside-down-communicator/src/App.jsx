@@ -430,10 +430,10 @@ function App() {
 
   // Render Portal Page if not entered
   if (!enteredPortal) {
-    return <PortalPage onEnter={() => {
-      initAudio(); // Also init audio on portal enter
-      setEnteredPortal(true);
-    }} />;
+    return <PortalPage
+      onInteract={initAudio}
+      onEnter={() => setEnteredPortal(true)}
+    />;
   }
 
   const handlePopupComplete = useCallback(() => {

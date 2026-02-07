@@ -1,32 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './PortalPage.css';
 
-const PortalPage = ({ onEnter }) => {
+const PortalPage = ({ onEnter, onInteract }) => {
     const [glitch, setGlitch] = useState(false);
-    const [text, setText] = useState('');
-    const [charge, setCharge] = useState(0);
-    const [isCharging, setIsCharging] = useState(false);
-    const fullText = "WARNING: RESTRICTED FREQUENCY";
+    // ... state ...
 
-    // Typing effect and glitch loop
-    useEffect(() => {
-        let index = 0;
-        const interval = setInterval(() => {
-            setText(fullText.substring(0, index));
-            index++;
-            if (index > fullText.length) clearInterval(interval);
-        }, 100);
-
-        const glitchInterval = setInterval(() => {
-            setGlitch(true);
-            setTimeout(() => setGlitch(false), 200);
-        }, 3000);
-
-        return () => {
-            clearInterval(interval);
-            clearInterval(glitchInterval);
-        };
-    }, []);
+    // ... effects ...
 
     // Charge logic
     useEffect(() => {
@@ -58,7 +37,10 @@ const PortalPage = ({ onEnter }) => {
         }
     }, [charge, onEnter]);
 
-    const startCharge = () => setIsCharging(true);
+    const startCharge = () => {
+        if (onInteract) onInteract();
+        setIsCharging(true);
+    };
     const endCharge = () => setIsCharging(false);
 
     return (
