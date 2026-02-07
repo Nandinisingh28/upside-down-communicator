@@ -89,12 +89,14 @@ function App() {
       if (recoveryStage === 1 && frequency >= 590 && frequency <= 610) {
         setRecoveryStage(2);
         setShowLevelPopup(1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       // Stage 2 -> 3: Power level to max (index 3)
       if (recoveryStage === 2 && powerLevel === 3) {
         setRecoveryStage(3);
         setShowLevelPopup(2);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         // Regenerate sequence when reaching final stage
         if (konamiDetectorRef.current) {
           konamiDetectorRef.current.regenerateSequence();
