@@ -9,6 +9,7 @@ import VoltageMeter from './components/VoltageMeter';
 import SpectrumAnalyzer from './components/SpectrumAnalyzer';
 import FrequencyDial from './components/FrequencyDial';
 import TemperatureMeter from './components/TemperatureMeter';
+import LevelPopup from './components/LevelPopup';
 import LayerIndicator from './components/LayerIndicator';
 import QuickActions from './components/QuickActions';
 import TransmissionLog from './components/TransmissionLog';
@@ -39,6 +40,8 @@ function App() {
   const [hiddenMessage, setHiddenMessage] = useState('');
   const [activeEasterEgg, setActiveEasterEgg] = useState(null);
   const [recoverySequence, setRecoverySequence] = useState([]);
+  const [recoveryStage, setRecoveryStage] = useState(0); // 0: Normal, 1: Possessed, 2: Frequency Fixed, 3: Power Fixed
+  const [showLevelPopup, setShowLevelPopup] = useState(null);
   const [powerLevel, setPowerLevel] = useState(1);
   const [lastMessage, setLastMessage] = useState('');
 
@@ -47,36 +50,68 @@ function App() {
   const konamiDetectorRef = useRef(null);
   const lastPlayedSignalRef = useRef(-1);
   const possessedTimeoutRef = useRef(null);
+  const recoveryStageRef = useRef(0);
+
+  // Update ref when state changes
+  useEffect(() => {
+    recoveryStageRef.current = recoveryStage;
+  }, [recoveryStage]);
 
   // Initialize Konami code detector
 
+  // Main Effect: Detector Init + Stage Monitoring
   useEffect(() => {
+    // Initialize Detector
     konamiDetectorRef.current = new KonamiCodeDetector(() => {
-      // Use a ref or functional update to ensure we have latest mode if needed, 
-      // but since we depend on [mode], this closure is fresh.
-      // We need to check the current mode ref because the closure might be stale if we didn't depend on mode
-      // But we DO depend on mode.
+      // Check current stage from ref to avoid stale closures
+      if (recoveryStageRef.current < 3) return;
+
       setMode(currentMode => {
         if (currentMode === 'possessed') {
           setTimeout(() => {
             setMode('normal');
+            setRecoveryStage(0);
           }, 3000);
           setRecoveryProgress(0);
           setSanityLevel(100);
+          setShowLevelPopup(3); // Stage 3 Complete
           return 'recovered';
         }
         return currentMode;
       });
     });
 
-    // Sync the sequence state with the new detector
+    // Stage Monitoring Logic
     if (mode === 'possessed') {
-      setRecoverySequence(konamiDetectorRef.current.getSequenceDisplay());
+      // Stage 1 -> 2: Frequency tuning to 600Hz (allow small margin)
+      if (recoveryStage === 1 && frequency >= 590 && frequency <= 610) {
+        setRecoveryStage(2);
+        setShowLevelPopup(1);
+      }
+
+      // Stage 2 -> 3: Power level to max (index 3)
+      if (recoveryStage === 2 && powerLevel === 3) {
+        setRecoveryStage(3);
+        setShowLevelPopup(2);
+        // Regenerate sequence when reaching final stage
+        if (konamiDetectorRef.current) {
+          konamiDetectorRef.current.regenerateSequence();
+          setRecoverySequence(konamiDetectorRef.current.getSequenceDisplay());
+        }
+      }
+    }
+
+    // Sync sequence: only show in Stage 3
+    if (mode === 'possessed' && recoveryStage === 3) {
+      // Sequence is set logic above or persists
     } else {
       setRecoverySequence([]);
     }
 
     const handleKeyDown = (e) => {
+      // Only allow input in Stage 3
+      if (mode === 'possessed' && recoveryStage < 3) return;
+
       if (konamiDetectorRef.current) {
         konamiDetectorRef.current.handleKey(e.code);
         setRecoveryProgress(konamiDetectorRef.current.getProgress());
@@ -85,7 +120,7 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mode]);
+  }, [mode, recoveryStage, frequency, powerLevel]);
 
   // Sanity drain over time
   useEffect(() => {
@@ -112,6 +147,7 @@ function App() {
   useEffect(() => {
     if (sanityLevel <= 0 && mode !== 'possessed' && mode !== 'recovered') {
       setMode('possessed');
+      setRecoveryStage(1); // Start at Stage 1
 
       // Auto-recover after 30 seconds if user doesn't enter code
       possessedTimeoutRef.current = setTimeout(() => {
@@ -341,6 +377,7 @@ function App() {
         if (effect.corruption?.forcePossess) {
           setMode('possessed');
           setSanityLevel(0);
+          setRecoveryStage(1);
         }
 
         if (effect.corruption?.clearCorruption) {
@@ -384,6 +421,14 @@ function App() {
 
   return (
     <div className={`app ${mode === 'possessed' ? 'possessed' : ''}`}>
+      {/* Level Popup */}
+      {showLevelPopup && (
+        <LevelPopup
+          stage={showLevelPopup}
+          onComplete={() => setShowLevelPopup(null)}
+        />
+      )}
+
       {/* CRT screen effect overlay */}
       <div className="crt-overlay" />
 
@@ -414,6 +459,7 @@ function App() {
             recoveryProgress={recoveryProgress}
             isPossessed={mode === 'possessed'}
             recoverySequence={recoverySequence}
+            recoveryStage={recoveryStage}
           />
 
           {/* Quick Actions */}

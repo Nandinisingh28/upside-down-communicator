@@ -21,7 +21,9 @@ const ConsoleUI = ({
     corrupted,
     recoveryProgress,
     isPossessed,
-    recoverySequence = []
+    isPossessed,
+    recoverySequence = [],
+    recoveryStage = 0 // Default to 0
 }) => {
     const [message, setMessage] = useState('');
     const [buttonCorruption, setButtonCorruption] = useState({});
@@ -123,15 +125,38 @@ const ConsoleUI = ({
             )}
 
             {/* Recovery sequence hint - shows the randomized code */}
-            {isPossessed && recoverySequence.length > 0 && (
+            {/* Recovery Stage Hints */}
+            {isPossessed && (
                 <div className="recovery-hint">
-                    <span className="hint-label">ESCAPE CODE:</span>
-                    <span className="hint-sequence">
-                        {recoverySequence.map((symbol, i) => (
-                            <span key={i} className="hint-key">{symbol}</span>
-                        ))}
-                    </span>
-                    <span className="hint-instruction">👆 CLICK HERE THEN PRESS ARROW KEYS</span>
+                    {recoveryStage === 1 && (
+                        <>
+                            <span className="hint-label blink-urgent">⚠ SYSTEM UNSTABLE ⚠</span>
+                            <div className="stage-instruction">
+                                TUNE FREQUENCY TO <span className="highlight">600 HZ</span>
+                            </div>
+                        </>
+                    )}
+
+                    {recoveryStage === 2 && (
+                        <>
+                            <span className="hint-label blink-urgent">⚠ SIGNAL WEAK ⚠</span>
+                            <div className="stage-instruction">
+                                INCREASE POWER TO <span className="highlight">MAXIMUM</span>
+                            </div>
+                        </>
+                    )}
+
+                    {recoveryStage === 3 && recoverySequence.length > 0 && (
+                        <>
+                            <span className="hint-label">Enter Override Sequence:</span>
+                            <span className="hint-sequence">
+                                {recoverySequence.map((symbol, i) => (
+                                    <span key={i} className="hint-key">{symbol}</span>
+                                ))}
+                            </span>
+                            <span className="hint-instruction">👆 CLICK HERE THEN PRESS KEYS</span>
+                        </>
+                    )}
                 </div>
             )}
 
