@@ -384,6 +384,7 @@ function App() {
           setRecoveryStage(1);
           // Scramble frequency to prevent instant completion
           setFrequency(Math.random() > 0.5 ? Math.random() * 400 + 100 : Math.random() * 300 + 700);
+          return; // Stop transmission if possessed
         }
 
         if (effect.corruption?.clearCorruption) {

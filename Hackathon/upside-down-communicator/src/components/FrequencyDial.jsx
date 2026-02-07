@@ -32,15 +32,17 @@ function FrequencyDial({
     // Calculate frequency from rotation angle
     const getFrequencyFromAngle = (angle) => {
         const normalized = (angle + 135) / 270;
-        return Math.round(MIN_FREQ + normalized * (MAX_FREQ - MIN_FREQ));
+        const val = MIN_FREQ + normalized * (MAX_FREQ - MIN_FREQ);
+        return Math.min(MAX_FREQ, Math.max(MIN_FREQ, val));
     };
 
     // Determine tuning status based on frequency
     useEffect(() => {
         const diff = Math.abs(frequency - OPTIMAL_FREQ);
+        const roundedFreq = Math.round(frequency);
 
-        if (HIDDEN_FREQUENCIES[frequency]) {
-            setTuningStatus(HIDDEN_FREQUENCIES[frequency]);
+        if (HIDDEN_FREQUENCIES[roundedFreq]) {
+            setTuningStatus(HIDDEN_FREQUENCIES[roundedFreq]);
         } else if (diff <= 20) {
             setTuningStatus('STABLE');
         } else if (diff <= 100) {
@@ -111,7 +113,8 @@ function FrequencyDial({
 
     // Get status color
     const getStatusColor = () => {
-        if (HIDDEN_FREQUENCIES[frequency]) return 'hidden';
+        const roundedFreq = Math.round(frequency);
+        if (HIDDEN_FREQUENCIES[roundedFreq]) return 'hidden';
         const diff = Math.abs(frequency - OPTIMAL_FREQ);
         if (diff <= 20) return 'stable';
         if (diff <= 100) return 'warning';
@@ -123,7 +126,7 @@ function FrequencyDial({
             <div className="dial-header">
                 <span className="dial-icon">◆</span>
                 <span className="dial-title">FREQUENCY TUNER</span>
-                <span className="dial-freq">{frequency} Hz</span>
+                <span className="dial-freq">{Number(frequency).toFixed(2)} Hz</span>
             </div>
 
             <div className="dial-container">
