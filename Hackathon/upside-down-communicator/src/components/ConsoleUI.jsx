@@ -179,8 +179,8 @@ const ConsoleUI = ({
             </form>
 
             {mode === 'possessed' && (
-                <div className="recovery-hint">
-                    <span className="hint-label">ENTER RECOVERY SEQUENCE</span>
+                <div className="recovery-section">
+                    <span className="recovery-label">⚡ ENTER RECOVERY SEQUENCE ⚡</span>
                     <div className="recovery-progress">
                         {Array(10).fill(0).map((_, i) => (
                             <span
@@ -191,7 +191,7 @@ const ConsoleUI = ({
                             </span>
                         ))}
                     </div>
-                    <span className="hint-code">↑↑↓↓←→←→BA</span>
+                    <span className="recovery-percent">{Math.round(recoveryProgress * 100)}% COMPLETE</span>
                 </div>
             )}
 

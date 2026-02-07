@@ -254,21 +254,85 @@
     margin-bottom: 10px;
 }
 
+/* Recovery Section - Shows progress during key sequence entry */
+.recovery-section {
+    background: rgba(0, 255, 136, 0.1);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    margin-top: 15px;
+    text-align: center;
+    animation: recoverPulse 1s infinite;
+}
+
+@keyframes recoverPulse {
+
+    0%,
+    100% {
+        border-color: #00ff88;
+        box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    50% {
+        border-color: #00ffff;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+}
+
+.recovery-label {
+    display: block;
+    color: #00ff88;
+    font-size: 9px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px #00ff88;
+    animation: labelFlash 0.5s infinite;
+}
+
+@keyframes labelFlash {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
 .recovery-progress {
     display: flex;
     justify-content: center;
-    gap: 5px;
-    margin-bottom: 10px;
+    gap: 6px;
+    margin-bottom: 12px;
 }
 
 .progress-dot {
-    color: #ff0040;
-    font-size: 10px;
+    color: #333;
+    font-size: 16px;
+    transition: all 0.2s ease;
 }
 
 .progress-dot.filled {
     color: #00ff88;
-    text-shadow: 0 0 5px #00ff88;
+    text-shadow: 0 0 8px #00ff88;
+    animation: dotPop 0.3s ease-out;
+}
+
+@keyframes dotPop {
+    0% {
+        transform: scale(1.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.recovery-percent {
+    display: block;
+    color: #00ffff;
+    font-size: 10px;
+    text-shadow: 0 0 5px #00ffff;
 }
 
 .hint-code {
