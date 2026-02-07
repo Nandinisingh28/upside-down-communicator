@@ -21,7 +21,6 @@ const ConsoleUI = ({
     corrupted,
     recoveryProgress,
     isPossessed,
-    isPossessed,
     recoverySequence = [],
     recoveryStage = 0 // Default to 0
 }) => {
