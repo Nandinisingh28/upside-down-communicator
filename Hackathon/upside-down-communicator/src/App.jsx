@@ -150,6 +150,8 @@ function App() {
     if (sanityLevel <= 0 && mode !== 'possessed' && mode !== 'recovered') {
       setMode('possessed');
       setRecoveryStage(1); // Start at Stage 1
+      // Scramble frequency to prevent instant completion
+      setFrequency(Math.random() > 0.5 ? Math.random() * 400 + 100 : Math.random() * 300 + 700);
 
       // Auto-recover after 30 seconds if user doesn't enter code
       possessedTimeoutRef.current = setTimeout(() => {
@@ -380,6 +382,8 @@ function App() {
           setMode('possessed');
           setSanityLevel(0);
           setRecoveryStage(1);
+          // Scramble frequency to prevent instant completion
+          setFrequency(Math.random() > 0.5 ? Math.random() * 400 + 100 : Math.random() * 300 + 700);
         }
 
         if (effect.corruption?.clearCorruption) {
