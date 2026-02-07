@@ -1,0 +1,123 @@
+.sanity-meter {
+  background: rgba(0, 20, 10, 0.9);
+  border: 2px solid #00ff88;
+  padding: 15px;
+  font-family: 'Press Start 2P', monospace;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.sanity-meter::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.3) 2px,
+    rgba(0, 0, 0, 0.3) 4px
+  );
+  pointer-events: none;
+}
+
+.sanity-meter.possessed {
+  border-color: #ff0040;
+  animation: meterGlitch 0.1s infinite;
+}
+
+@keyframes meterGlitch {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+.meter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.meter-label {
+  color: #00ff88;
+  font-size: 10px;
+}
+
+.meter-status {
+  font-size: 8px;
+  padding: 2px 6px;
+  border: 1px solid currentColor;
+}
+
+.status-stable {
+  color: #00ff88;
+}
+
+.status-degrading {
+  color: #ffaa00;
+}
+
+.status-unstable {
+  color: #ff6600;
+}
+
+.status-critical {
+  color: #ff0040;
+  animation: blink 0.5s infinite;
+}
+
+.status-recovered {
+  color: #00ffff;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.meter-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.meter-bar {
+  color: #00ff88;
+  font-size: 12px;
+  letter-spacing: -2px;
+  flex: 1;
+}
+
+.sanity-meter.possessed .meter-bar {
+  color: #ff0040;
+}
+
+.meter-value {
+  color: #00ff88;
+  font-size: 10px;
+  min-width: 50px;
+  text-align: right;
+}
+
+.sanity-meter.possessed .meter-value {
+  color: #ff0040;
+}
+
+.meter-footer {
+  font-size: 8px;
+  color: #00aa66;
+  text-align: center;
+  border-top: 1px solid #00ff88;
+  padding-top: 10px;
+}
+
+.sanity-meter.possessed .meter-footer {
+  border-color: #ff0040;
+  color: #ff0040;
+}

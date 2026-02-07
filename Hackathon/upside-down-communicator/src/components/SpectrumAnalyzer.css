@@ -1,0 +1,128 @@
+.spectrum-analyzer {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.spectrum-analyzer.corrupted {
+    border-color: #ff0040;
+    animation: analyzerGlitch 0.1s infinite;
+}
+
+@keyframes analyzerGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        filter: none;
+    }
+
+    50% {
+        transform: translateX(-2px);
+        filter: hue-rotate(30deg);
+    }
+}
+
+.analyzer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.spectrum-analyzer.corrupted .analyzer-header {
+    border-color: #ff0040;
+}
+
+.analyzer-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+.spectrum-analyzer.corrupted .analyzer-icon {
+    color: #ff0040;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.analyzer-title {
+    color: #00ff88;
+    font-size: 9px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.spectrum-analyzer.corrupted .analyzer-title {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+}
+
+.analyzer-freq {
+    color: #ffaa00;
+    font-size: 10px;
+    text-shadow: 0 0 10px #ffaa00;
+}
+
+.analyzer-display {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #003322;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+}
+
+.spectrum-analyzer.corrupted .analyzer-display {
+    border-color: #aa0030;
+}
+
+.analyzer-display canvas {
+    image-rendering: pixelated;
+}
+
+.freq-scale {
+    display: flex;
+    justify-content: space-between;
+    color: #006644;
+    font-size: 6px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.analyzer-footer {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.analyzer-status {
+    font-size: 7px;
+    color: #00aa66;
+}
+
+.spectrum-analyzer.corrupted .analyzer-status {
+    color: #ff0040;
+    animation: statusBlink 0.3s infinite;
+}
+
+@keyframes statusBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}

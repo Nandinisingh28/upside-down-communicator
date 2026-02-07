@@ -1,0 +1,199 @@
+.signal-strength-meter {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.signal-strength-meter.corrupted {
+    border-color: #ff0040;
+    animation: meterGlitch 0.1s infinite;
+}
+
+@keyframes meterGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+.meter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.signal-strength-meter.corrupted .meter-header {
+    border-color: #ff0040;
+}
+
+.meter-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+.signal-strength-meter.corrupted .meter-icon {
+    color: #ff0040;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.meter-title {
+    color: #00ff88;
+    font-size: 10px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.signal-strength-meter.corrupted .meter-title {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+}
+
+.meter-value {
+    color: #00ffff;
+    font-size: 12px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.vu-meter {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #006644;
+    padding: 10px;
+}
+
+.signal-strength-meter.corrupted .vu-meter {
+    border-color: #aa0030;
+}
+
+.vu-scale {
+    display: flex;
+    justify-content: space-between;
+    color: #006644;
+    font-size: 6px;
+    margin-bottom: 8px;
+}
+
+.vu-bars {
+    display: flex;
+    gap: 3px;
+    height: 40px;
+    align-items: flex-end;
+}
+
+.bar {
+    flex: 1;
+    background: #003322;
+    border: 1px solid #004433;
+    transition: all 0.1s ease;
+}
+
+.bar.inactive {
+    height: 20%;
+    opacity: 0.3;
+}
+
+.bar.active.low {
+    height: 100%;
+    background: #00ff88;
+    box-shadow: 0 0 5px #00ff88;
+}
+
+.bar.active.medium {
+    height: 100%;
+    background: #ffaa00;
+    box-shadow: 0 0 5px #ffaa00;
+}
+
+.bar.active.high {
+    height: 100%;
+    background: #ff0040;
+    box-shadow: 0 0 5px #ff0040;
+    animation: barPulse 0.3s infinite;
+}
+
+@keyframes barPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.signal-strength-meter.corrupted .bar.active {
+    animation: barGlitch 0.1s infinite;
+}
+
+@keyframes barGlitch {
+
+    0%,
+    100% {
+        transform: scaleY(1);
+    }
+
+    50% {
+        transform: scaleY(0.5);
+    }
+}
+
+.vu-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #006644;
+    font-size: 6px;
+    margin-top: 8px;
+}
+
+.meter-footer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 8px;
+    color: #00aa66;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+    animation: dotBlink 1s infinite;
+}
+
+.signal-strength-meter.corrupted .status-dot {
+    background: #ff0040;
+}
+
+@keyframes dotBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}

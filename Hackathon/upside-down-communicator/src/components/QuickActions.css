@@ -1,0 +1,213 @@
+.quick-actions {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.quick-actions.corrupted {
+    border-color: #ff0040;
+    animation: qaGlitch 0.1s infinite;
+}
+
+@keyframes qaGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+.qa-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.qa-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.qa-title {
+    color: #00ff88;
+    font-size: 9px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.quick-actions.corrupted .qa-header {
+    border-color: #ff0040;
+}
+
+.quick-actions.corrupted .qa-title,
+.quick-actions.corrupted .qa-icon {
+    color: #ff0040;
+}
+
+.quick-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.quick-btn {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00aa66;
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.quick-btn:hover:not(:disabled) {
+    border-color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.quick-btn:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+.quick-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.quick-btn.active {
+    border-color: #00ffff;
+    background: rgba(0, 255, 255, 0.2);
+    animation: btnPulse 0.3s ease-out;
+}
+
+@keyframes btnPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.btn-icon {
+    color: #00ffff;
+    font-size: 14px;
+}
+
+.btn-label {
+    color: #00ff88;
+    font-size: 8px;
+}
+
+/* Power Control */
+.power-control {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #003322;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.power-label {
+    color: #00aa66;
+    font-size: 7px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.power-slider {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.power-level {
+    width: 30px;
+    height: 25px;
+    background: #001a0d;
+    border: 2px solid #003322;
+    color: #006644;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.power-level.active {
+    background: #004422;
+    border-color: #00aa66;
+    color: #00ff88;
+}
+
+.power-level.current {
+    background: #006644;
+    border-color: #00ff88;
+    color: #00ff88;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.power-level:hover:not(:disabled) {
+    border-color: #00ff88;
+}
+
+.power-value {
+    text-align: center;
+    color: #00ff88;
+    font-size: 8px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+/* Emergency Button */
+.emergency-btn {
+    width: 100%;
+    background: rgba(255, 0, 64, 0.2);
+    border: 2px solid #ff0040;
+    color: #ff0040;
+    padding: 12px;
+    font-size: 8px;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+    transition: all 0.2s ease;
+}
+
+.emergency-btn:hover:not(:disabled) {
+    background: rgba(255, 0, 64, 0.4);
+    box-shadow: 0 0 15px rgba(255, 0, 64, 0.5);
+}
+
+.emergency-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.emergency-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}

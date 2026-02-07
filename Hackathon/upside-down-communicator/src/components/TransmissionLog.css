@@ -1,0 +1,158 @@
+.transmission-log {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'VT323', monospace;
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.transmission-log.corrupted {
+    border-color: #ff0040;
+}
+
+.log-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #00aa66;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.log-icon {
+    color: #00ff88;
+    font-size: 12px;
+}
+
+.log-title {
+    color: #00ff88;
+    font-size: 9px;
+    flex: 1;
+}
+
+.log-count {
+    color: #00aa66;
+    font-size: 8px;
+}
+
+.transmission-log.corrupted .log-header {
+    border-color: #ff0040;
+}
+
+.transmission-log.corrupted .log-icon,
+.transmission-log.corrupted .log-title {
+    color: #ff0040;
+}
+
+.log-entries {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.log-entry {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0, 100, 68, 0.3);
+}
+
+.log-entry.system {
+    color: #00aa66;
+}
+
+.log-entry.normal {
+    color: #00ff88;
+}
+
+.log-entry.corrupted {
+    color: #ff0040;
+    animation: logGlitch 0.2s infinite;
+}
+
+.log-entry.warning {
+    color: #ffaa00;
+    animation: logWarn 0.5s infinite;
+}
+
+.log-entry.active {
+    color: #00ffff;
+    border-bottom-color: #00ffff;
+}
+
+@keyframes logGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+@keyframes logWarn {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+}
+
+.log-time {
+    min-width: 70px;
+    color: #006644;
+}
+
+.log-entry.active .log-time {
+    color: #00ffff;
+    animation: timePulse 0.5s infinite;
+}
+
+@keyframes timePulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.log-separator {
+    color: #003322;
+}
+
+.log-message {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.log-message.transmitting {
+    animation: textBlink 0.3s infinite;
+}
+
+@keyframes textBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}

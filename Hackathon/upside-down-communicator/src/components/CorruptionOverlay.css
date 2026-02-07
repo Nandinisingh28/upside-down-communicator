@@ -1,0 +1,115 @@
+.corruption-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1000;
+    animation: overlayFlicker 0.1s infinite;
+}
+
+@keyframes overlayFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.9;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    75% {
+        opacity: 0.85;
+    }
+}
+
+.corruption-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.corruption-warnings {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.warning-text {
+    position: absolute;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 14px;
+    color: #ff0040;
+    text-shadow:
+        0 0 10px #ff0040,
+        0 0 20px #ff0040,
+        0 0 30px #ff0040;
+    animation: warningGlitch 0.2s infinite;
+    white-space: nowrap;
+}
+
+.warning-text.critical {
+    font-size: 20px;
+    animation: criticalPulse 0.15s infinite;
+}
+
+@keyframes warningGlitch {
+
+    0%,
+    100% {
+        transform: translate(0, 0) skewX(0deg);
+        opacity: 1;
+    }
+
+    25% {
+        transform: translate(-5px, 2px) skewX(-5deg);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translate(3px, -1px) skewX(3deg);
+        opacity: 1;
+    }
+
+    75% {
+        transform: translate(-2px, 1px) skewX(-2deg);
+        opacity: 0.9;
+    }
+}
+
+@keyframes criticalPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px #ff0040, 0 0 20px #ff0040;
+    }
+
+    50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 30px #ff0040, 0 0 50px #ff0040, 0 0 70px #ff0040;
+    }
+}
+
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center,
+            transparent 0%,
+            transparent 40%,
+            rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+}

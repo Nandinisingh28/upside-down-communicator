@@ -1,0 +1,475 @@
+.console-ui {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 20px;
+    font-family: 'Press Start 2P', monospace;
+    position: relative;
+}
+
+.console-ui::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.3) 2px,
+            rgba(0, 0, 0, 0.3) 4px);
+    pointer-events: none;
+}
+
+.console-ui.corrupted {
+    border-color: #ff0040;
+    animation: consoleGlitch 0.1s infinite;
+}
+
+@keyframes consoleGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+        box-shadow: none;
+    }
+
+    20% {
+        transform: translateX(-5px);
+        box-shadow: 5px 0 0 #00ffff, -5px 0 0 #ff0040;
+    }
+
+    40% {
+        transform: translateX(5px);
+        box-shadow: -5px 0 0 #00ffff, 5px 0 0 #ff0040;
+    }
+
+    60% {
+        transform: translateX(-2px);
+        box-shadow: 2px 0 0 #ff0040;
+    }
+
+    80% {
+        transform: translateX(2px);
+        box-shadow: -2px 0 0 #00ffff;
+    }
+}
+
+.console-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #00ff88;
+    margin-bottom: 20px;
+}
+
+.console-ui.corrupted .console-header {
+    border-color: #ff0040;
+}
+
+.console-title {
+    color: #00ff88;
+    font-size: 12px;
+    text-shadow: 0 0 10px #00ff88;
+}
+
+.console-ui.corrupted .console-title {
+    color: #ff0040;
+    text-shadow: 0 0 10px #ff0040;
+}
+
+.console-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.status-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+}
+
+.status-indicator.possessed {
+    background: #ff0040;
+    box-shadow: 0 0 10px #ff0040;
+    animation: indicatorBlink 0.2s infinite;
+}
+
+.status-indicator.recovered {
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+@keyframes indicatorBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.2;
+    }
+}
+
+.status-text {
+    color: #00aa66;
+    font-size: 8px;
+}
+
+.console-input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00aa66;
+    padding: 10px;
+}
+
+.console-ui.corrupted .input-wrapper {
+    border-color: #ff0040;
+}
+
+.input-prompt {
+    color: #00ff88;
+    font-size: 14px;
+}
+
+.console-ui.corrupted .input-prompt {
+    color: #ff0040;
+}
+
+.console-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff88;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    outline: none;
+}
+
+.console-ui.corrupted .console-input {
+    color: #ff0040;
+}
+
+.console-input::placeholder {
+    color: #006644;
+}
+
+.console-ui.corrupted .console-input::placeholder {
+    color: #aa0030;
+}
+
+.console-input:disabled {
+    opacity: 0.5;
+}
+
+.transmit-button {
+    background: #001a0d;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 12px;
+    padding: 15px 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.1s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.transmit-button:hover:not(:disabled) {
+    background: #00ff88;
+    color: #001a0d;
+    box-shadow: 0 0 20px #00ff88;
+}
+
+.transmit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.transmit-button.transmitting {
+    animation: transmitPulse 0.5s infinite;
+}
+
+@keyframes transmitPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 10px #00ff88;
+    }
+
+    50% {
+        box-shadow: 0 0 30px #00ff88, 0 0 50px #00ff88;
+    }
+}
+
+.console-ui.corrupted .transmit-button {
+    border-color: #ff0040;
+    color: #ff0040;
+}
+
+.console-ui.corrupted .transmit-button:hover:not(:disabled) {
+    background: #ff0040;
+    color: #0a0a0a;
+    box-shadow: 0 0 20px #ff0040;
+}
+
+.recovery-hint {
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px dashed #ff0040;
+    text-align: center;
+    animation: hintGlow 1s infinite;
+}
+
+@keyframes hintGlow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px #ff0040;
+    }
+
+    50% {
+        box-shadow: 0 0 20px #ff0040;
+    }
+}
+
+.hint-label {
+    display: block;
+    color: #ff0040;
+    font-size: 8px;
+    margin-bottom: 10px;
+}
+
+.recovery-progress {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.progress-dot {
+    color: #ff0040;
+    font-size: 10px;
+}
+
+.progress-dot.filled {
+    color: #00ff88;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.hint-code {
+    display: block;
+    color: #ffaa00;
+    font-size: 10px;
+    margin-top: 10px;
+}
+
+.console-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #00aa66;
+    color: #006644;
+    font-size: 8px;
+}
+
+.console-ui.corrupted .console-footer {
+    border-color: #ff0040;
+    color: #aa0030;
+}
+
+/* Inversion warning banner */
+.inversion-warning {
+    background: #ff0040;
+    color: #0a0a0a;
+    text-align: center;
+    padding: 8px;
+    font-size: 8px;
+    animation: warningFlash 0.3s infinite;
+    margin-bottom: 15px;
+    border: 2px solid #ff0040;
+}
+
+@keyframes warningFlash {
+
+    0%,
+    100% {
+        background: #ff0040;
+        color: #0a0a0a;
+    }
+
+    50% {
+        background: #0a0a0a;
+        color: #ff0040;
+    }
+}
+
+/* Button row layout */
+.button-row {
+    display: flex;
+    gap: 10px;
+}
+
+.button-row .transmit-button {
+    flex: 2;
+}
+
+/* Clear button */
+.clear-button {
+    flex: 1;
+    background: #001a0d;
+    border: 2px solid #00aa66;
+    color: #00aa66;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 10px;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+}
+
+.clear-button:hover:not(:disabled) {
+    background: #00aa66;
+    color: #001a0d;
+}
+
+.clear-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Inverted button styling */
+.inverted-btn {
+    border-color: #ff0040 !important;
+    color: #ff0040 !important;
+    animation: invertedPulse 0.2s infinite;
+}
+
+.inverted-btn:hover:not(:disabled) {
+    background: #ff0040 !important;
+    color: #0a0a0a !important;
+}
+
+@keyframes invertedPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px #ff0040;
+    }
+
+    50% {
+        box-shadow: 0 0 15px #ff0040, 0 0 25px #ff0040;
+    }
+}
+
+/* Inverted input styling */
+.console-input.inverted {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+    animation: inputGlitch 0.1s infinite;
+}
+
+@keyframes inputGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-1px);
+    }
+
+    75% {
+        transform: translateX(1px);
+    }
+}
+
+/* Recovery Hint - Shows the random escape code */
+.recovery-hint {
+    background: rgba(255, 0, 64, 0.2);
+    border: 1px solid #ff0040;
+    padding: 12px;
+    margin-bottom: 15px;
+    text-align: center;
+    animation: hintPulse 2s infinite;
+}
+
+@keyframes hintPulse {
+
+    0%,
+    100% {
+        border-color: #ff0040;
+    }
+
+    50% {
+        border-color: #ff6600;
+    }
+}
+
+.hint-label {
+    display: block;
+    color: #ffaa00;
+    font-size: 8px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 5px #ffaa00;
+}
+
+.hint-sequence {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.hint-key {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid #00ffff;
+    color: #00ffff;
+    font-size: 14px;
+    padding: 6px 10px;
+    min-width: 35px;
+    text-align: center;
+    text-shadow: 0 0 8px #00ffff;
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    font-family: 'VT323', monospace;
+}
+
+.hint-key:nth-child(odd) {
+    animation: keyFlicker 1s infinite;
+    animation-delay: 0.1s;
+}
+
+.hint-key:nth-child(even) {
+    animation: keyFlicker 1s infinite;
+    animation-delay: 0.3s;
+}
+
+@keyframes keyFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+}

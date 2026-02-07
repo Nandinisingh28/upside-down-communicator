@@ -1,0 +1,186 @@
+.signal-display {
+    background: rgba(0, 20, 10, 0.9);
+    border: 2px solid #00ff88;
+    padding: 20px;
+    font-family: 'Press Start 2P', monospace;
+    position: relative;
+}
+
+.signal-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(0deg,
+            transparent,
+            transparent 2px,
+            rgba(0, 0, 0, 0.3) 2px,
+            rgba(0, 0, 0, 0.3) 4px);
+    pointer-events: none;
+}
+
+.signal-display.corrupted {
+    border-color: #ff0040;
+    animation: signalGlitch 0.05s infinite;
+}
+
+@keyframes signalGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0) skewX(0deg);
+        filter: none;
+    }
+
+    33% {
+        transform: translateX(-3px) skewX(-1deg);
+        filter: hue-rotate(90deg);
+    }
+
+    66% {
+        transform: translateX(3px) skewX(1deg);
+        filter: hue-rotate(-90deg);
+    }
+}
+
+.signal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00ff88;
+}
+
+.signal-display.corrupted .signal-header {
+    border-color: #ff0040;
+}
+
+.signal-label {
+    color: #00ff88;
+    font-size: 10px;
+}
+
+.signal-display.corrupted .signal-label {
+    color: #ff0040;
+}
+
+.signal-status {
+    font-size: 8px;
+    color: #666;
+    padding: 4px 8px;
+    border: 1px solid currentColor;
+}
+
+.signal-status.active {
+    color: #00ff88;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.led-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid #00aa66;
+}
+
+.signal-display.corrupted .led-panel {
+    border-color: #ff0040;
+}
+
+.led-row {
+    display: flex;
+    gap: 15px;
+}
+
+.led {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #00aa66;
+    position: relative;
+    transition: all 0.05s ease;
+}
+
+.led-off {
+    background: #001a0d;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.led-on {
+    background: #00ff88;
+    box-shadow:
+        0 0 10px #00ff88,
+        0 0 20px #00ff88,
+        0 0 30px #00ff88,
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.led-corrupt {
+    background: #ff0040;
+    border-color: #ff0040;
+    box-shadow:
+        0 0 10px #ff0040,
+        0 0 20px #ff0040,
+        0 0 30px #ff0040,
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.led-glow {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.led-labels {
+    display: flex;
+    gap: 15px;
+}
+
+.led-label {
+    width: 30px;
+    text-align: center;
+    color: #00aa66;
+    font-size: 8px;
+}
+
+.signal-info {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #00aa66;
+    text-align: center;
+}
+
+.signal-display.corrupted .signal-info {
+    border-color: #ff0040;
+}
+
+.signal-type {
+    color: #00ff88;
+    font-size: 12px;
+}
+
+.signal-display.corrupted .signal-type {
+    color: #ff0040;
+}

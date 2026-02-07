@@ -1,0 +1,261 @@
+.layer-indicator {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.layer-indicator.corrupted {
+    border-color: #ff0040;
+    animation: layerGlitch 0.1s infinite;
+}
+
+.layer-indicator.dual {
+    border-color: #ff00ff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+@keyframes layerGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+.layer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.layer-indicator.corrupted .layer-header {
+    border-color: #ff0040;
+}
+
+.layer-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+.layer-indicator.corrupted .layer-icon {
+    color: #ff0040;
+}
+
+.layer-indicator.dual .layer-icon {
+    color: #ff00ff;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.layer-title {
+    color: #00ff88;
+    font-size: 9px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.layer-indicator.corrupted .layer-title {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+}
+
+.layer-indicator.dual .layer-title {
+    color: #ff00ff;
+    text-shadow: 0 0 5px #ff00ff;
+}
+
+.layers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.layer {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #003322;
+    padding: 10px;
+    text-align: center;
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.layer.active {
+    opacity: 1;
+    border-color: #00ff88;
+}
+
+.layer.layer-a.active {
+    border-color: #00ffff;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.layer.layer-b.active {
+    border-color: #ff00ff;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+.layer-led {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 auto 8px;
+    background: #003322;
+}
+
+.layer.active .layer-led {
+    animation: ledBlink 0.5s infinite;
+}
+
+.layer.layer-a.active .layer-led {
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.layer.layer-b.active .layer-led {
+    background: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+@keyframes ledBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.layer-label {
+    display: block;
+    font-size: 8px;
+    color: #00aa66;
+    margin-bottom: 4px;
+}
+
+.layer.layer-a.active .layer-label {
+    color: #00ffff;
+}
+
+.layer.layer-b.active .layer-label {
+    color: #ff00ff;
+}
+
+.layer-desc {
+    display: block;
+    font-size: 6px;
+    color: #006644;
+}
+
+.hidden-message {
+    margin-top: 10px;
+    padding: 8px;
+    background: rgba(255, 0, 255, 0.1);
+    border: 1px solid #ff00ff;
+    font-size: 7px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.hidden-label {
+    color: #ff00ff;
+}
+
+.hidden-content {
+    color: #00ffff;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.layer-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 8px;
+    color: #00aa66;
+}
+
+.layer-indicator.dual .layer-status {
+    color: #ff00ff;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff88;
+}
+
+.layer-indicator.inactive .status-dot {
+    background: #003322;
+}
+
+.layer-indicator.layer-a .status-dot {
+    background: #00ffff;
+    animation: dotPulse 0.5s infinite;
+}
+
+.layer-indicator.layer-b .status-dot {
+    background: #ff00ff;
+    animation: dotPulse 0.5s infinite;
+}
+
+.layer-indicator.dual .status-dot {
+    background: linear-gradient(90deg, #00ffff, #ff00ff);
+    animation: dotPulse 0.3s infinite;
+}
+
+.layer-indicator.corrupted .status-dot {
+    background: #ff0040;
+    animation: corruptedPulse 0.1s infinite;
+}
+
+@keyframes dotPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        box-shadow: 0 0 5px currentColor;
+    }
+
+    50% {
+        opacity: 0.5;
+        box-shadow: 0 0 10px currentColor;
+    }
+}
+
+@keyframes corruptedPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.8);
+    }
+}

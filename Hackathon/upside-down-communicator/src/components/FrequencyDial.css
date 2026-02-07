@@ -1,0 +1,288 @@
+.frequency-dial {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.frequency-dial.corrupted {
+    border-color: #ff0040;
+    animation: dialGlitch 0.1s infinite;
+}
+
+@keyframes dialGlitch {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
+
+.dial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.frequency-dial.corrupted .dial-header {
+    border-color: #ff0040;
+}
+
+.dial-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+.frequency-dial.corrupted .dial-icon {
+    color: #ff0040;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.dial-title {
+    color: #00ff88;
+    font-size: 10px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.frequency-dial.corrupted .dial-title {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+}
+
+.dial-freq {
+    color: #ffaa00;
+    font-size: 12px;
+    text-shadow: 0 0 10px #ffaa00;
+}
+
+.dial-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dial-scale {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.scale-mark {
+    position: absolute;
+    font-size: 6px;
+    color: #006644;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+}
+
+.dial-knob {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #1a3322, #0a1a0d);
+    border: 3px solid #00aa66;
+    cursor: grab;
+    position: relative;
+    transition: transform 0.05s linear;
+    box-shadow:
+        0 0 10px rgba(0, 255, 136, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.dial-knob:hover {
+    border-color: #00ff88;
+    box-shadow:
+        0 0 20px rgba(0, 255, 136, 0.5),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.dial-knob.dragging {
+    cursor: grabbing;
+    border-color: #00ffff;
+}
+
+.frequency-dial.corrupted .dial-knob {
+    border-color: #ff0040;
+    box-shadow:
+        0 0 10px rgba(255, 0, 64, 0.3),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.dial-indicator {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 20px;
+    background: #00ffff;
+    box-shadow: 0 0 10px #00ffff;
+    border-radius: 2px;
+}
+
+.frequency-dial.corrupted .dial-indicator {
+    background: #ff0040;
+    box-shadow: 0 0 10px #ff0040;
+}
+
+.dial-grip {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.grip-notch {
+    width: 8px;
+    height: 8px;
+    background: #003322;
+    border-radius: 50%;
+}
+
+.optimal-marker {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffff;
+}
+
+.tuning-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px solid #003322;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.tuning-status.stable {
+    border-color: #00ff88;
+}
+
+.tuning-status.warning {
+    border-color: #ffaa00;
+}
+
+.tuning-status.danger {
+    border-color: #ff0040;
+}
+
+.tuning-status.hidden {
+    border-color: #ff00ff;
+    animation: hiddenPulse 0.5s infinite;
+}
+
+@keyframes hiddenPulse {
+
+    0%,
+    100% {
+        border-color: #ff00ff;
+        box-shadow: 0 0 10px #ff00ff;
+    }
+
+    50% {
+        border-color: #00ffff;
+        box-shadow: 0 0 10px #00ffff;
+    }
+}
+
+.status-led {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    animation: ledBlink 0.5s infinite;
+}
+
+.tuning-status.stable .status-led {
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+}
+
+.tuning-status.warning .status-led {
+    background: #ffaa00;
+    box-shadow: 0 0 10px #ffaa00;
+}
+
+.tuning-status.danger .status-led {
+    background: #ff0040;
+    box-shadow: 0 0 10px #ff0040;
+}
+
+.tuning-status.hidden .status-led {
+    background: #ff00ff;
+    box-shadow: 0 0 10px #ff00ff;
+}
+
+@keyframes ledBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.status-text {
+    font-size: 8px;
+    color: #00aa66;
+}
+
+.tuning-status.warning .status-text {
+    color: #ffaa00;
+}
+
+.tuning-status.danger .status-text {
+    color: #ff0040;
+}
+
+.tuning-status.hidden .status-text {
+    color: #ff00ff;
+}
+
+.dial-footer {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 6px;
+    color: #006644;
+}

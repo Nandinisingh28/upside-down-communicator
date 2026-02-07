@@ -1,0 +1,204 @@
+.temperature-meter {
+    background: rgba(0, 20, 10, 0.95);
+    border: 2px solid #00ff88;
+    padding: 15px;
+    font-family: 'Press Start 2P', monospace;
+}
+
+.temperature-meter.corrupted {
+    border-color: #ff0040;
+}
+
+.temperature-meter.overheating {
+    animation: overheatPulse 0.3s infinite;
+}
+
+@keyframes overheatPulse {
+
+    0%,
+    100% {
+        border-color: #ff0040;
+        box-shadow: 0 0 10px #ff0040;
+    }
+
+    50% {
+        border-color: #ffaa00;
+        box-shadow: 0 0 20px #ffaa00;
+    }
+}
+
+.temp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #00aa66;
+}
+
+.temperature-meter.corrupted .temp-header {
+    border-color: #ff0040;
+}
+
+.temp-icon {
+    color: #00ff88;
+    animation: iconPulse 1s infinite;
+}
+
+.temperature-meter.corrupted .temp-icon {
+    color: #ff0040;
+}
+
+@keyframes iconPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.temp-title {
+    color: #00ff88;
+    font-size: 10px;
+    text-shadow: 0 0 5px #00ff88;
+}
+
+.temperature-meter.corrupted .temp-title {
+    color: #ff0040;
+    text-shadow: 0 0 5px #ff0040;
+}
+
+.temp-value {
+    color: #00ffff;
+    font-size: 12px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.thermometer-container {
+    display: flex;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #003322;
+    padding: 10px;
+}
+
+.temperature-meter.corrupted .thermometer-container {
+    border-color: #aa0030;
+}
+
+.thermometer-container canvas {
+    image-rendering: pixelated;
+}
+
+.temp-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px solid #003322;
+    font-size: 8px;
+}
+
+.temp-status.normal {
+    border-color: #00ff88;
+    color: #00ff88;
+}
+
+.temp-status.warning {
+    border-color: #ffaa00;
+    color: #ffaa00;
+    animation: statusBlink 0.5s infinite;
+}
+
+.temp-status.critical {
+    border-color: #ff0040;
+    color: #ff0040;
+    animation: statusBlink 0.2s infinite;
+}
+
+@keyframes statusBlink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.temp-status .status-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.temp-status.normal .status-led {
+    background: #00ff88;
+    box-shadow: 0 0 5px #00ff88;
+}
+
+.temp-status.warning .status-led {
+    background: #ffaa00;
+    box-shadow: 0 0 5px #ffaa00;
+}
+
+.temp-status.critical .status-led {
+    background: #ff0040;
+    box-shadow: 0 0 5px #ff0040;
+}
+
+.vent-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #1a0a0a;
+    border: 2px solid #ff0040;
+    color: #ff0040;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    cursor: pointer;
+    animation: ventPulse 0.5s infinite;
+}
+
+@keyframes ventPulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px #ff0040;
+    }
+
+    50% {
+        box-shadow: 0 0 15px #ff0040, 0 0 25px #ff0040;
+    }
+}
+
+.vent-button:hover:not(:disabled) {
+    background: #ff0040;
+    color: #0a0a0a;
+}
+
+.vent-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    animation: ventingAnimation 0.2s infinite;
+}
+
+@keyframes ventingAnimation {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-2px);
+    }
+}
