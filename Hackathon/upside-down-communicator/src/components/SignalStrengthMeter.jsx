@@ -18,7 +18,7 @@ function SignalStrengthMeter({ strength = 0, corrupted = false }) {
             <div className="meter-header">
                 <span className="meter-icon">◆</span>
                 <span className="meter-title">SIGNAL STRENGTH</span>
-                <span className="meter-value">{strength}%</span>
+                <span className="meter-value">{strength.toFixed(2)}%</span>
             </div>
 
             <div className="vu-meter">

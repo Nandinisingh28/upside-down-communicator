@@ -109,7 +109,7 @@ function VoltageMeter({ voltage = 50, corrupted = false }) {
             <div className="meter-header">
                 <span className="meter-icon">◆</span>
                 <span className="meter-title">VOLTAGE</span>
-                <span className="meter-value">{voltage}V</span>
+                <span className="meter-value">{voltage.toFixed(2)}V</span>
             </div>
 
             <div className="gauge-container">
