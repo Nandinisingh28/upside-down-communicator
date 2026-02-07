@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Benguiat&family=Press+Start+2P&display=swap');
+
+.portal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    color: #c41e3a;
+    /* Stranger Things Red */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    overflow: hidden;
+    font-family: 'ITC Benguiat', serif;
+}
+
+.portal-content {
+    text-align: center;
+    z-index: 10;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.portal-title {
+    font-family: 'ITC Benguiat', serif;
+    /* Fallback to serif if font fails to load */
+    font-size: 4rem;
+    letter-spacing: 0.1em;
+    text-shadow:
+        0 0 10px #c41e3a,
+        0 0 20px #c41e3a,
+        0 0 40px #ff0000;
+    margin-bottom: 40px;
+    animation: titlePulse 4s infinite alternate;
+    line-height: 1.2;
+}
+
+/* Simulate the Stranger Things Font manually with stroke */
+.portal-title {
+    -webkit-text-stroke: 2px #c41e3a;
+    color: transparent;
+}
+
+.warning-box {
+    background: rgba(20, 0, 0, 0.8);
+    border: 2px solid #c41e3a;
+    padding: 20px;
+    margin-bottom: 40px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 15px rgba(196, 30, 58, 0.3);
+}
+
+.warning-text {
+    color: #ff3333;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.cursor {
+    animation: blink 1s infinite;
+}
+
+.portal-status {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+}
+
+.status-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.status-label {
+    color: #666;
+}
+
+.status-value {
+    color: #c41e3a;
+}
+
+.status-value.blink {
+    animation: blink 0.5s infinite;
+}
+
+.enter-button {
+    background: transparent;
+    border: 3px solid #c41e3a;
+    padding: 20px 60px;
+    color: #c41e3a;
+    font-family: 'ITC Benguiat', serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(196, 30, 58, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.enter-button:hover {
+    background: #c41e3a;
+    color: #000;
+    box-shadow: 0 0 30px #c41e3a;
+    transform: scale(1.05);
+}
+
+.portal-footer {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #444;
+    letter-spacing: 2px;
+}
+
+/* Effects */
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 50%, black 100%);
+    pointer-events: none;
+}
+
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+@keyframes titlePulse {
+    0% {
+        text-shadow: 0 0 10px #c41e3a;
+    }
+
+    100% {
+        text-shadow: 0 0 25px #c41e3a, 0 0 50px #ff0000;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Particles / Dust */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIj48Y2lyY2xlIGN4PSIxMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48Y2lyY2xlIGN4PSI1MCIgY3k9IjgwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L3N2Zz4=');
+    animation: floating 20s infinite linear;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+@keyframes floating {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 0 -200px;
+    }
+}

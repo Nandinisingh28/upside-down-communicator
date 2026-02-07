@@ -10,6 +10,7 @@ import SpectrumAnalyzer from './components/SpectrumAnalyzer';
 import FrequencyDial from './components/FrequencyDial';
 import TemperatureMeter from './components/TemperatureMeter';
 import LevelPopup from './components/LevelPopup';
+import PortalPage from './components/PortalPage';
 import LayerIndicator from './components/LayerIndicator';
 import QuickActions from './components/QuickActions';
 import TransmissionLog from './components/TransmissionLog';
@@ -42,6 +43,7 @@ function App() {
   const [recoverySequence, setRecoverySequence] = useState([]);
   const [recoveryStage, setRecoveryStage] = useState(0); // 0: Normal, 1: Possessed, 2: Frequency Fixed, 3: Power Fixed
   const [showLevelPopup, setShowLevelPopup] = useState(null);
+  const [enteredPortal, setEnteredPortal] = useState(false);
   const [powerLevel, setPowerLevel] = useState(1);
   const [lastMessage, setLastMessage] = useState('');
 
@@ -418,6 +420,14 @@ function App() {
 
   // Determine if corruption effects should be active
   const isCorrupted = mode === 'possessed' || sanityLevel < 30;
+
+  // Render Portal Page if not entered
+  if (!enteredPortal) {
+    return <PortalPage onEnter={() => {
+      initAudio(); // Also init audio on portal enter
+      setEnteredPortal(true);
+    }} />;
+  }
 
   return (
     <div className={`app ${mode === 'possessed' ? 'possessed' : ''}`}>
