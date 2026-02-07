@@ -56,7 +56,7 @@ function QuickActions({
                             key={level}
                             className={`power-level ${index <= powerLevel ? 'active' : ''} ${index === powerLevel ? 'current' : ''}`}
                             onClick={() => onPowerChange && onPowerChange(index)}
-                            disabled={corrupted}
+                            disabled={isTransmitting}
                         >
                             {level.charAt(0)}
                         </button>
