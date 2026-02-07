@@ -34,12 +34,8 @@ const PortalPage = ({ onEnter }) => {
         if (isCharging) {
             chargeInterval = setInterval(() => {
                 setCharge(prev => {
-                    const newCharge = prev + 2; // Charged in ~1.5s
-                    if (newCharge >= 100) {
-                        clearInterval(chargeInterval);
-                        onEnter();
-                        return 100;
-                    }
+                    const newCharge = prev + 2;
+                    if (newCharge >= 100) return 100;
                     return newCharge;
                 });
             }, 30);
@@ -47,16 +43,20 @@ const PortalPage = ({ onEnter }) => {
             // Rapid drain if released
             chargeInterval = setInterval(() => {
                 setCharge(prev => {
-                    if (prev <= 0) {
-                        clearInterval(chargeInterval);
-                        return 0;
-                    }
+                    if (prev <= 0) return 0;
                     return prev - 5;
                 });
             }, 30);
         }
         return () => clearInterval(chargeInterval);
-    }, [isCharging, onEnter]);
+    }, [isCharging]);
+
+    // Handle completion
+    useEffect(() => {
+        if (charge >= 100) {
+            onEnter();
+        }
+    }, [charge, onEnter]);
 
     const startCharge = () => setIsCharging(true);
     const endCharge = () => setIsCharging(false);
