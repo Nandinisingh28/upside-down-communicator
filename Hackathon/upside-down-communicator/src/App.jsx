@@ -52,17 +52,29 @@ function App() {
 
   useEffect(() => {
     konamiDetectorRef.current = new KonamiCodeDetector(() => {
-      if (mode === 'possessed') {
-        setMode('recovered');
-        setSanityLevel(100);
-        setRecoveryProgress(0);
-
-        // Reset after showing recovered state
-        setTimeout(() => {
-          setMode('normal');
-        }, 3000);
-      }
+      // Use a ref or functional update to ensure we have latest mode if needed, 
+      // but since we depend on [mode], this closure is fresh.
+      // We need to check the current mode ref because the closure might be stale if we didn't depend on mode
+      // But we DO depend on mode.
+      setMode(currentMode => {
+        if (currentMode === 'possessed') {
+          setTimeout(() => {
+            setMode('normal');
+          }, 3000);
+          setRecoveryProgress(0);
+          setSanityLevel(100);
+          return 'recovered';
+        }
+        return currentMode;
+      });
     });
+
+    // Sync the sequence state with the new detector
+    if (mode === 'possessed') {
+      setRecoverySequence(konamiDetectorRef.current.getSequenceDisplay());
+    } else {
+      setRecoverySequence([]);
+    }
 
     const handleKeyDown = (e) => {
       if (konamiDetectorRef.current) {
@@ -101,11 +113,6 @@ function App() {
     if (sanityLevel <= 0 && mode !== 'possessed' && mode !== 'recovered') {
       setMode('possessed');
 
-      // Regenerate a new random recovery sequence
-      if (konamiDetectorRef.current) {
-        konamiDetectorRef.current.regenerateSequence();
-        setRecoverySequence(konamiDetectorRef.current.getSequenceDisplay());
-      }
       // Auto-recover after 30 seconds if user doesn't enter code
       possessedTimeoutRef.current = setTimeout(() => {
         if (mode === 'possessed') {
@@ -334,11 +341,6 @@ function App() {
         if (effect.corruption?.forcePossess) {
           setMode('possessed');
           setSanityLevel(0);
-          // Regenerate sequence for this possession
-          if (konamiDetectorRef.current) {
-            konamiDetectorRef.current.regenerateSequence();
-            setRecoverySequence(konamiDetectorRef.current.getSequenceDisplay());
-          }
         }
 
         if (effect.corruption?.clearCorruption) {

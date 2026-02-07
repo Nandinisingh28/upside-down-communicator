@@ -136,8 +136,8 @@ export class KonamiCodeDetector {
             sequence.push(moves[Math.floor(Math.random() * moves.length)]);
         }
 
-        // Always end with B, A
-        sequence.push('KeyB', 'KeyA');
+        // Always end with S, T (Stranger Things)
+        sequence.push('KeyS', 'KeyT');
 
         return sequence;
     }
@@ -179,8 +179,8 @@ export class KonamiCodeDetector {
             'ArrowDown': '▼',
             'ArrowLeft': '◀',
             'ArrowRight': '▶',
-            'KeyB': 'B',
-            'KeyA': 'A'
+            'KeyS': 'S',
+            'KeyT': 'T'
         };
         return this.sequence.map(key => symbols[key] || key);
     }
